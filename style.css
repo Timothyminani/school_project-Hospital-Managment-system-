@@ -1,0 +1,269 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: rgb(204, 198, 198);
+}
+
+.nav_container{
+    width: 100%;
+    height: 100px;
+    border: solid 1px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+}
+
+.logo{
+    margin-left: 60px;
+}
+
+.login{
+    height: 100px;
+    width: 200px;
+    background-color:white;
+    margin-left: 850px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-user{
+ font-size: 35px;
+ color: rgb(15, 15, 180);
+}
+
+.login_text{
+    margin-top: 55px;
+    margin-left: -35px;
+}
+
+.homepic_container{
+    height: 100vh;
+    position: relative;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  
+   &::before{
+    content: '';
+    background-image:   url(home_pic_img.jpg);
+    position:absolute;
+    top:0px;
+    right: 0px;
+    bottom:0px;
+    left: 0px;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    opacity: 1;
+    filter: brightness(90%);
+ }
+ }
+ 
+ .welcome_text{
+   margin-bottom: 45px;
+   margin-left: 20px;
+   font-size: 40px;
+   color: rgb(15, 15, 180);
+ }
+
+ .homepic_tet{
+    height: 200px;
+    background-color: white;
+    width: 430px;
+    margin-right: 730px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+
+
+ .user_logIn{
+    background-color:transparent;
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    gap: 3em;
+    margin-top: -100px;
+    position: absolute;
+  
+ }
+
+ .logIn_box{
+    width: 200px;
+    height: 100px;
+    background-color: white;
+ }
+
+ .fa-user-doctor{
+    font-size: 60px;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: rgb(15, 15, 180);
+    position: absolute;
+ }
+
+ .doctor_logIn{
+    margin-top: 40px;
+    margin-left: 90px;
+    position: absolute;
+}
+
+.fa-user-nurse{
+    font-size: 60px;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: rgb(15, 15, 180);
+    position: absolute;
+}
+
+.fa-user-tie{
+    font-size: 60px;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: rgb(15, 15, 180);
+    position: absolute;
+}
+
+.fa-hospital{
+    font-size: 50px;
+    margin-top: 25px;
+    margin-left: 10px;
+    color: rgb(15, 15, 180);
+    position: absolute;
+}
+
+.Records{
+    width: 100%;
+    height: 300px;
+    background-color:white;
+    margin-top: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4em;
+}
+
+
+.patient_ADM{
+    width: 300px;
+    height: 150px;
+    background-color:transparent;
+    border-radius: 10px;
+    border: 2px solid  rgb(15, 15, 180);
+    display: flex;
+    justify-content:center;
+   
+}
+
+.Our_records{
+    margin-bottom: 260px;
+    position: absolute;
+    font-size: 30px;
+}
+
+.line{
+    width: 250px;
+    height: 2px;
+    margin-top: 60px;
+    background-color: rgb(15, 15, 180);
+    border: none;
+}
+
+.number{
+    margin-right: 30px;
+    position: absolute;
+    font-size: 30px;
+    margin-top: 5px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.patient_admited{
+    margin-top: 100px;
+    position: absolute;
+    font-size: 25px;
+}
+
+.footer{
+    width: 100%;
+    height: 400px;
+    background-color: rgb(66, 64, 64);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.address{
+    color: white;
+}
+.Privacy{
+    color: white;
+}
+
+.privacy_text{
+    color: white;
+    margin-top: -10px;
+}
+
+.contact_info{
+    width: 300px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    margin-top: -16px;
+   
+}
+
+.fa-phone{
+    color: white;
+    position: absolute;
+    margin-right: 110px;
+    margin-top: -120px;
+}
+
+.Phone_number{
+    color: white;
+    position: absolute;
+    margin-top: -100px;
+}
+
+.fa-whatsapp{
+    color: white;
+    position: absolute;
+    margin-right: 110px;
+    margin-top: -50px;
+}
+
+.Phone_Whatsapp{
+    color: white;
+    position: absolute;
+    margin-top: -30px;
+}
+
+.fa-envelope{
+    color: white;
+    position: absolute;
+    margin-right: 110px;
+    margin-top: 20px;
+}
+
+.Phone_email{
+    color: white;
+    position: absolute;
+    margin-top: 40px; 
+    margin-left: 100px;
+}
+
+.copyright{
+    color: white;
+    letter-spacing: 2px;
+    margin-left: 40px;
+}
