@@ -1,9 +1,21 @@
+
+<?php
+session_start();
+if(!isset($_SESSION['username'])){
+    header('location:home.php');
+}
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HSM_Admin</title>
+    <title>HSM_Receptionist_patient_list</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/c5cdba9a5c.js" crossorigin="anonymous"></script>
 </head>
@@ -12,25 +24,18 @@
     <div class="admin_container">
 
         <div class="side_navbar">
-            <ul>
-                <lh class="add_user"><i class="fa-solid fa-user-plus"></i> <span>Add User</span></lh>
-                <a href="#"><li id="Add_doctor"><i class="fa-solid fa-plus"></i> Doctor</li></a>
-                <a href="#"><li id="Add_Nurse"><i class="fa-solid fa-plus"></i>Nurse</li></a>
-                <a href="#"><li id="Add_Receptionist"><i class="fa-solid fa-plus"></i>Receptionist</li></a>
-            
-            
-                <lh  class="add_user"><i class="fa-solid fa-user-minus"></i><span>Remove User</span></lh>
-                <a href="#"><li><i class="fa-solid fa-minus"></i> Doctor</li></a>
-                <a href="#"><li><i class="fa-solid fa-minus"></i>Nurse</li></a>
-                <a href="#"><li><i class="fa-solid fa-minus"></i>Receptionist</li></a>
-            
-            
-                <a href="admin_patientList.html"><li><i class="fa-solid fa-bed"></i>Patient List</li></a>
-                <a href="admin_userList.html"><li><i class="fa-solid fa-users"></i>Users List</li></a>
-            
-                <a href="#"><li><i class="fa-solid fa-gear"></i>System Setting</li></a>
-                <a href="#"><li><i class="fa-solid fa-right-from-bracket"></i>Logout</li></a>
-            </ul>
+<ul id="Patient_registration">
+    <lh > <span id="add_patient">Patient Registration</span></lh>
+    <a href="#"><li id="Add_doctor"> <i class="fa-solid fa-plus"></i>Add A Patient</li></a>
+    <a href="#"><li id="Patient_list"><i class="fa-solid fa-bed"></i>Patient List</li></a>
+    <a href="Receptionist_AdmitedPatient.php"><li id="Patient_admited"><i class="fa-solid fa-bed"></i>Patient Admited</li></a>
+</ul>
+
+<ul>
+    <a href="logout.php"><li id="Logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</li></a>
+</ul>
+
+
 
 
         </div>
@@ -38,7 +43,7 @@
 
         <div class="top_navbar">
      <h3 class="dashboad">Dashboard</h3>
-     <p class="admind">Admin</p>
+     <p class="admind">Receptionist</p>
 
      <div class="searchbar">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -48,7 +53,13 @@
      </div>
 
      <div class="user_Name">
-      <p>Timothy Minani</p>
+     <p><?php 
+      
+      echo $_SESSION['f_Name'];
+      echo " ";
+      echo $_SESSION['L_name'];
+      ?>
+    </p>
 
      </div>
 
@@ -62,7 +73,6 @@
         </div>
 
         <div class="main_container">
-
 
             <h3>Patient List</h3>
 
@@ -404,6 +414,9 @@
 </table>
 
 </div>
+            
+        </div>
+
 
             
         </div>
@@ -412,12 +425,12 @@
     </div>
 
     <div class="userCreate" id="UserCreateA">
-<h4 class="create_text">Create User Account</h4>
+<h4 class="create_text">Patient Registration</h4>
 <i id="close"   class="fa-solid fa-xmark"></i>
 <hr>
 
 <div class="userInformation">
-    <h5 class="userInfo">User Information</h5>
+    <h5 class="userInfo">Patient Information</h5>
 </div>
 
 <div class="userInfor_form">
@@ -467,32 +480,39 @@
 <div class="userAcount_info">
 
     <hr>
-    <h5>User Account:</h5>
+    <h5>Patient health Information:</h5>
 
-    <label>Select User Type:</label><br>
-    <select name="" id="" class="select_user">
-        <option>User</option>
-        <option>Receptionist</option>
-        <option>Doctor</option>
-        <option>Nurse</option>
-        <option>Admin</option>
-    </select>
 
     <div class="userAcount_info2">
 
         <div class="fname_user">
-            <label for="fname">Username</label>
+            <label for="fname">Blood group</label>
             <input type="text" name="fname" > 
         </div>
     
         <div class="fname_user">
-            <label for="fname">Password</label>
+            <label for="fname">Blood pressure</label>
             <input type="password" name="fname" > 
         </div>
     
         <div class="fname_user">
-            <label for="fname">Reset Password</label>
+            <label for="fname">Weight</label>
             <input type="text" name="fname" > 
+        </div>
+
+        <div class="fname_user">
+            <label for="fname">Temprature</label>
+            <input type="text" name="fname" > 
+        </div>
+
+        <div class="fname_user">
+            <label for="fname">Height</label>
+            <input type="text" name="fname" > 
+        </div>
+
+        <div class="fname_user">
+            <label for="fname">More information</label>
+           <textarea></textarea>
         </div>
 
         <div class="fname_userSabmit">

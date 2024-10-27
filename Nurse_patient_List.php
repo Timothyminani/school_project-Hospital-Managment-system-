@@ -1,9 +1,23 @@
+<?php
+session_start();
+if(!isset($_SESSION['username'])){
+    header('location:home.php');
+}
+
+
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HSM_Doctor</title>
+    <title>HSM_Nurse</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/c5cdba9a5c.js" crossorigin="anonymous"></script>
 </head>
@@ -16,19 +30,18 @@
     <lh > <span id="add_patient">Patient Registration</span></lh>
     <a href="#"><li id="Add_doctor"> <i class="fa-solid fa-plus"></i>Add A Patient</li></a>
     <a href="#"><li id="Patient_list"><i class="fa-solid fa-bed"></i>Patient List</li></a>
-    <a href="doctorAdmitedPatient_list.html"><li id="Patient_admited"><i class="fa-solid fa-bed"></i>Patient Admited</li></a>
+    <a href="doctorAdmitedPatient_list.php"><li id="Patient_admited"><i class="fa-solid fa-bed"></i>Patient Admited</li></a>
 </ul>
 
 <ul id="Patient_treatment">
     <lh > <span id="Treatment_txt">Treatment</span></lh>
-    <a href="doctor_patientTreatment.html"><li id="P_treatment"> <i class="fa-solid fa-notes-medical"></i>Patient Treatment</li></a>
-    <a href="doctor_Outpatient_list.html"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Outpatient</li></a>
-    <a href="doctorAdmitedPatient_list.html"><li id="Inpatient"><i class="fa-solid fa-bed-pulse"></i>Inpatient</li></a>
-    <a href="doctor_dischargedPatient_list.html"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Discharged Patient</li></a>
+    <a href="Nurse_Outpatient_list.php"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Outpatient</li></a>
+    <a href="Nurse_Inpatient.php"><li id="Inpatient"><i class="fa-solid fa-bed-pulse"></i>Inpatient</li></a>
+    <a href="Nurse_patient_discharged.php"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Discharged Patient</li></a>
 </ul>
 
 <ul>
-    <a href="#"><li id="Logout_Doc"><i class="fa-solid fa-right-from-bracket"></i>Logout</li></a>
+    <a href="logout.php"><li id="Logout_Doc"><i class="fa-solid fa-right-from-bracket"></i>Logout</li></a>
 </ul>
 
 
@@ -39,7 +52,7 @@
 
         <div class="top_navbar">
      <h3 class="dashboad">Dashboard</h3>
-     <p class="admind">Doctor</p>
+     <p class="admind">Nurse</p>
 
      <div class="searchbar">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -49,7 +62,12 @@
      </div>
 
      <div class="user_Name">
-      <p>Timothy Minani</p>
+      <p><?php 
+      
+      echo $_SESSION['f_Name'];
+      echo " ";
+      echo $_SESSION['L_name'];
+      ?></p>
 
      </div>
 

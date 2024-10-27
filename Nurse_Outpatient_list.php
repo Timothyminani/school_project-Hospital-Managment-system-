@@ -1,9 +1,29 @@
+
+<?php
+session_start();
+if(!isset($_SESSION['username'])){
+    header('location:home.php');
+}
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HSM_Nurse</title>
+    <title>HSM_Nurse_Outpatient</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/c5cdba9a5c.js" crossorigin="anonymous"></script>
 </head>
@@ -15,19 +35,19 @@
 <ul id="Patient_rgstr">
     <lh > <span id="add_patient">Patient Registration</span></lh>
     <a href="#"><li id="Add_doctor"> <i class="fa-solid fa-plus"></i>Add A Patient</li></a>
-    <a href="Nurse_patient_List.html"><li id="Patient_list"><i class="fa-solid fa-bed"></i>Patient List</li></a>
-    <a href="Nurse_patient_Admited.html"><li id="Patient_admited"><i class="fa-solid fa-bed"></i>Patient Admited</li></a>
+    <a href="Nurse_patient_List.php"><li id="Patient_list"><i class="fa-solid fa-bed"></i>Patient List</li></a>
+    <a href="Nurse_patient_Admited.php"><li id="Patient_admited"><i class="fa-solid fa-bed"></i>Patient Admited</li></a>
 </ul>
 
 <ul id="Patient_treatment">
     <lh > <span id="Treatment_txt">Treatment</span></lh>
-    <a href="Nurse_Outpatient_list.html"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Outpatient</li></a>
-    <a href="Nurse_Inpatient.html"><li id="Inpatient"><i class="fa-solid fa-bed-pulse"></i>Inpatient</li></a>
-    <a href="Nurse_patient_discharged.html"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Discharged Patient</li></a>
+    <a href="#"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Outpatient</li></a>
+    <a href="Nurse_Inpatient.php"><li id="Inpatient"><i class="fa-solid fa-bed-pulse"></i>Inpatient</li></a>
+    <a href="Nurse_patient_discharged.php"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Discharged Patient</li></a>
 </ul>
 
 <ul>
-    <a href="#"><li id="Logout_Doc"><i class="fa-solid fa-right-from-bracket"></i>Logout</li></a>
+    <a href="logout.php"><li id="Logout_Doc"><i class="fa-solid fa-right-from-bracket"></i>Logout</li></a>
 </ul>
 
 
@@ -48,7 +68,12 @@
      </div>
 
      <div class="user_Name">
-      <p>Timothy Minani</p>
+      <p>  <?php 
+      
+      echo $_SESSION['f_Name'];
+      echo " ";
+      echo $_SESSION['L_name'];
+      ?></p>
 
      </div>
 
@@ -63,29 +88,57 @@
 
         <div class="main_container">
 
-            <div class="dashboard_patientRecord">
-                <h3 class="patientsRecords">Patients Records</h3>
-                <hr class="record_line">
 
-                <div class="patientRecords_box">
-                      <h4 class="patientAdmit">Patients Admited</h4>
-                      <hr class="admited_line">
-                      <h1 class="numberA">00</h1>
-                </div>
+            <h3>Outpatient list</h3>
 
-                <div class="patientRecords_box">
-                    <h4 class="patientAdmit">Patients Dischaged</h4>
-                    <hr class="admited_line">
-                    <h1 class="numberA">00</h1>
-                </div>
+            <div class="table_body">
+            <table  cellpadding = "0" cellspacing = "0">
+                <thead>
+                <tr>
+                    <th>User Id</th>
+                    <th>Fist Name</th>
+                    <th>Middle Name</th>
+                    <th>Last Name</th>
+                    <th>User Type</th>
+                    <th>Birthdate</th>
+                    <th>Address</th>
+                    <th>Contact</th>
+                    <th>Age</th>
+                    <th>Sex</th>
+                    <th>Blood group</th>
+                    <th>Blood pressure</th>
+                    <th>Weight</th>
+                    <th>Height</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+            
+                <tr>
+                    <td>1</td>
+                    <td>Timothy</td>
+                    <td>Minani</td>
+                    <td>Paul</td>
+                    <td>Doctor</td>
+                    <td>27/12/1999</td>
+                    <td>Kiambu</td>
+                    <td>0769295800</td>
+                    <td>24</td>
+                    <td>Male</td>
+                    <td>AB</td>
+                    <td>Sytolic</td>
+                    <td>55kg</td>
+                    <td>5ft</td>
+                    <td class="action_td">
+                        <a href="#"> <span class="View_bnt"><i class="fa-regular fa-eye"></i>View</span> </a>
+                    </td>
+                </tr>
+       
 
-                <div class="patientRecords_box">
-                    <h4 class="patientAdmit">Outpatients</h4>
-                    <hr class="admited_line">
-                    <h1 class="numberA">00</h1>
-                </div>
-
-
+             </tbody>
+            </table>
+            
             </div>
 
             

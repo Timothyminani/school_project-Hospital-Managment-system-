@@ -1,3 +1,16 @@
+<?php
+session_start();
+if(!isset($_SESSION['username'])){
+    header('location:home.php');
+}
+
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,13 +35,13 @@
 <ul id="Patient_treatment">
     <lh > <span id="Treatment_txt">Treatment</span></lh>
     <a href="#"><li id="P_treatment"> <i class="fa-solid fa-notes-medical"></i>Patient Treatment</li></a>
-    <a href="doctor_Outpatient_list.html"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Outpatient</li></a>
-    <a href="doctorAdmitedPatient_list.html"><li id="Inpatient"><i class="fa-solid fa-bed-pulse"></i>Inpatient</li></a>
-    <a href="doctor_dischargedPatient_list.html"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Discharged Patient</li></a>
+    <a href="doctor_Outpatient_list.php"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Outpatient</li></a>
+    <a href="doctorAdmitedPatient_list.php"><li id="Inpatient"><i class="fa-solid fa-bed-pulse"></i>Inpatient</li></a>
+    <a href="doctor_dischargedPatient_list.php"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Discharged Patient</li></a>
 </ul>
 
 <ul>
-    <a href="#"><li id="Logout_Doc"><i class="fa-solid fa-right-from-bracket"></i>Logout</li></a>
+    <a href="logout.php"><li id="Logout_Doc"><i class="fa-solid fa-right-from-bracket"></i>Logout</li></a>
 </ul>
 
 
@@ -49,7 +62,13 @@
      </div>
 
      <div class="user_Name">
-      <p>Timothy Minani</p>
+     <p><?php 
+      
+      echo $_SESSION['f_Name'];
+      echo " ";
+      echo $_SESSION['L_name'];
+      ?>
+    </p>
 
      </div>
 

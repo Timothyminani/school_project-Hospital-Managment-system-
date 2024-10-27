@@ -1,9 +1,25 @@
+
+
+
+<?php
+session_start();
+if(!isset($_SESSION['username'])){
+    header('location:home.php');
+}
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HSM_Admin_userList</title>
+    <title>HSM_Admin</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/c5cdba9a5c.js" crossorigin="anonymous"></script>
 </head>
@@ -12,27 +28,25 @@
     <div class="admin_container">
 
         <div class="side_navbar">
-<ul>
-    <lh class="add_user"><i class="fa-solid fa-user-plus"></i> <span>Add User</span></lh>
-    <a href="#"><li id="Add_doctor"><i class="fa-solid fa-plus"></i> Doctor</li></a>
-    <a href="#"><li id="Add_Nurse"><i class="fa-solid fa-plus"></i>Nurse</li></a>
-    <a href="#"><li id="Add_Receptionist"><i class="fa-solid fa-plus"></i>Receptionist</li></a>
-
-
-    <lh  class="add_user"><i class="fa-solid fa-user-minus"></i><span>Remove User</span></lh>
-    <a href="#"><li><i class="fa-solid fa-minus"></i> Doctor</li></a>
-    <a href="#"><li><i class="fa-solid fa-minus"></i>Nurse</li></a>
-    <a href="#"><li><i class="fa-solid fa-minus"></i>Receptionist</li></a>
-
-
-    <a href="admin_patientList.html"><li><i class="fa-solid fa-bed"></i>Patient List</li></a>
-    <a  href="#"><li><i class="fa-solid fa-users"></i>Users List</li></a>
-
-    <a href="#"><li><i class="fa-solid fa-gear"></i>System Setting</li></a>
-    <a href="#"><li><i class="fa-solid fa-right-from-bracket"></i>Logout</li></a>
-</ul>
-
-
+            <ul>
+                <lh class="add_user"><i class="fa-solid fa-user-plus"></i> <span>Add User</span></lh>
+                <a href="#"><li id="Add_doctor"><i class="fa-solid fa-plus"></i> Doctor</li></a>
+                <a href="#"><li id="Add_Nurse"><i class="fa-solid fa-plus"></i>Nurse</li></a>
+                <a href="#"><li id="Add_Receptionist"><i class="fa-solid fa-plus"></i>Receptionist</li></a>
+            
+            
+                <lh  class="add_user"><i class="fa-solid fa-user-minus"></i><span>Remove User</span></lh>
+                <a href="#"><li><i class="fa-solid fa-minus"></i> Doctor</li></a>
+                <a href="#"><li><i class="fa-solid fa-minus"></i>Nurse</li></a>
+                <a href="#"><li><i class="fa-solid fa-minus"></i>Receptionist</li></a>
+            
+            
+                <a href="admin_patientList.php"><li><i class="fa-solid fa-bed"></i>Patient List</li></a>
+                <a href="admin_userList.php"><li><i class="fa-solid fa-users"></i>Users List</li></a>
+            
+                <a href="#"><li><i class="fa-solid fa-gear"></i>System Setting</li></a>
+                <a href="logout.php"><li><i class="fa-solid fa-right-from-bracket"></i>Logout</li></a>
+            </ul>
 
 
         </div>
@@ -50,7 +64,13 @@
      </div>
 
      <div class="user_Name">
-      <p>Timothy Minani</p>
+     <p><?php 
+      
+      echo $_SESSION['f_Name'];
+      echo " ";
+      echo $_SESSION['L_name'];
+      ?>
+    </p>
 
      </div>
 
@@ -64,7 +84,9 @@
         </div>
 
         <div class="main_container">
-<h3>User List</h3>
+
+
+            <h3>Patient List</h3>
 
 <div class="table_body">
 <table>
@@ -80,27 +102,15 @@
         <th>Contact</th>
         <th>Age</th>
         <th>Sex</th>
+        <th>Blood group</th>
+        <th>Blood pressure</th>
+        <th>Weight</th>
+        <th>Height</th>
         <th>Action</th>
     </tr>
 </thead>
 
 <tbody>
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-            <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
 
     <tr>
         <td>1</td>
@@ -113,23 +123,10 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -148,6 +145,31 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
+        <td class="action_td">
+            <a href="#"> <span class="editbtn">Edit</span> </a>
+           <a href="#"> <span class="removedbtn">Remove</span> </a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>1</td>
+        <td>Timothy</td>
+        <td>Minani</td>
+        <td>Paul</td>
+        <td>Doctor</td>
+        <td>27/12/1999</td>
+        <td>Kiambu</td>
+        <td>0769295800</td>
+        <td>24</td>
+        <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -166,23 +188,10 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -201,23 +210,10 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -236,6 +232,10 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -254,6 +254,10 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -272,6 +276,10 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -290,6 +298,10 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -308,6 +320,10 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -326,6 +342,10 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -344,6 +364,10 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -362,6 +386,10 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
@@ -380,11 +408,17 @@
         <td>0769295800</td>
         <td>24</td>
         <td>Male</td>
+        <td>AB</td>
+        <td>Sytolic</td>
+        <td>55kg</td>
+        <td>5ft</td>
         <td class="action_td">
             <a href="#"> <span class="editbtn">Edit</span> </a>
            <a href="#"> <span class="removedbtn">Remove</span> </a>
         </td>
     </tr>
+
+   
 
 
 
@@ -392,6 +426,7 @@
 </table>
 
 </div>
+
             
         </div>
 
@@ -408,7 +443,7 @@
 </div>
 
 <div class="userInfor_form">
-<form action="">
+<form action="insert.php" method='POST'>
 
 <div class="fname_user">
     <label for="fname">First Name</label>

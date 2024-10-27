@@ -39,7 +39,7 @@
         <i class="fa-solid fa-user-doctor"></i>
         <p class="doctor_logIn">
             Doctor LogIn <br>
-            <a href="login_Doctor.html">Click here</a>
+            <a href="login_Doctor.php">Click here</a>
         </p>
        
     </div>
@@ -48,7 +48,7 @@
         <i class="fa-solid fa-user-nurse"></i>
         <p class="doctor_logIn">
             Nurse LogIn <br>
-            <a href="login_Nurse.html">Click here</a>
+            <a href="login_Nurse.php">Click here</a>
         </p>
        
     </div>
@@ -57,7 +57,7 @@
         <i class="fa-solid fa-user-tie"></i>
         <p class="doctor_logIn">
             Admin LogIn <br>
-            <a href="login_Admin.html">Click here</a>
+            <a href="login_Admin.php">Click here</a>
         </p>
        
     </div>
@@ -66,7 +66,7 @@
         <i class="fa-regular fa-hospital"></i>
         <p class="doctor_logIn">
             Receptionist <br>LogIn <br>
-            <a href="login_Receptionist.html">Click here</a>
+            <a href="login_Receptionist.php">Click here</a>
         </p>
        
     </div>
