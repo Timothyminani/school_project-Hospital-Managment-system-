@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'connect.php';  // Connection to your MySQL database
+require 'connect.php';  
 
 $Invalid_password=0;
 $Invalid_username=0;
@@ -10,27 +10,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Validate inputs
+    /
     if (!empty($username) && !empty($password)) {
-        // Query to find the user in the database
+       
         $stmt = $con->prepare("SELECT id, username, password, usertype, f_Name, L_name  FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows === 1) {
-            // Fetch the user data
+        
             $user = $result->fetch_assoc();
 
-            // Verify the password using password_verify
             if (password_verify($password, $user['password'])) {
-                // Store user information in session
+           
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['usertype'] = $user['usertype'];
                 $_SESSION['f_Name'] = $user['f_Name'];
                 $_SESSION['L_name'] = $user['L_name'];
 
-                // Redirect based on user type
                 switch ($user['usertype']) {
                     case 'Doctor':
                         header("Location: doctor.php");

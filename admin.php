@@ -80,6 +80,57 @@ if(!isset($_SESSION['username'])){
 
         </div>
 
+<?php
+
+ $sql="SELECT COUNT(*) AS admitted_count FROM patient WHERE Admitted = 1";
+
+ $result= mysqli_query($con,$sql);
+ $row=mysqli_fetch_assoc($result);
+ $admitted_Count=$row['admitted_count'];
+
+
+
+
+
+?>
+
+
+<?php
+
+ $sql="SELECT COUNT(*) AS discharge_count FROM patient WHERE Discharge = 1";
+
+ $result= mysqli_query($con,$sql);
+ $row=mysqli_fetch_assoc($result);
+ $discharge_Count=$row['discharge_count'];
+
+
+
+
+
+?>
+
+
+
+<?php
+
+ $sql="SELECT COUNT(*) AS released_count FROM patient WHERE Released = 1";
+
+ $result= mysqli_query($con,$sql);
+ $row=mysqli_fetch_assoc($result);
+ $released_Count=$row['released_count'];
+
+
+
+
+
+?>
+
+
+
+
+
+
+
         <div class="main_container">
 
             <div class="dashboard_patientRecord">
@@ -89,19 +140,20 @@ if(!isset($_SESSION['username'])){
                 <div class="patientRecords_box">
                       <h4 class="patientAdmit">Patients Admited</h4>
                       <hr class="admited_line">
-                      <h1 class="numberA">00</h1>
+
+                      <h1 class="numberA"><?php echo $admitted_Count;?></h1>
                 </div>
 
                 <div class="patientRecords_box">
                     <h4 class="patientAdmit">Patients Dischaged</h4>
                     <hr class="admited_line">
-                    <h1 class="numberA">00</h1>
+                    <h1 class="numberA"><?php echo $discharge_Count;?></h1>
                 </div>
 
                 <div class="patientRecords_box">
                     <h4 class="patientAdmit">Outpatients</h4>
                     <hr class="admited_line">
-                    <h1 class="numberA">00</h1>
+                    <h1 class="numberA"><?php echo $released_Count;?></h1>
                 </div>
 
 

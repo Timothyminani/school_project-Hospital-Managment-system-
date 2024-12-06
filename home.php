@@ -29,7 +29,7 @@
 
     <div class="homepic_container">
         <div class="homepic_tet">
-        <h4 class="welcome_text">Welcome To Rehema Medical Clinic</h4>
+        <h4 class="welcome_text" >Welcome To Rehema Medical Clinic</h4>
        
     </div>
     </div>

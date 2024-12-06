@@ -1,4 +1,7 @@
 <?php
+
+include "connect.php";
+include "Fuction_msg.php";
 session_start();
 if(!isset($_SESSION['username'])){
     header('location:home.php');
@@ -52,7 +55,7 @@ if(!isset($_SESSION['username'])){
 
 
         <div class="top_navbar">
-     <h3 class="dashboad">Dashboard</h3>
+        <h3 class="dashboad"><a href="Nurse.php">Dashboard</a></h3>
      <p class="admind">Nurse</p>
 
      <div class="searchbar">
@@ -83,7 +86,65 @@ if(!isset($_SESSION['username'])){
 
         </div>
 
-        <div class="main_container">
+
+
+
+        <?php
+
+$sql="SELECT COUNT(*) AS admitted_count FROM patient WHERE Admitted = 1";
+
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+$admitted_Count=$row['admitted_count'];
+
+
+
+
+
+?>
+
+
+<?php
+
+$sql="SELECT COUNT(*) AS discharge_count FROM patient WHERE Discharge = 1";
+
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+$discharge_Count=$row['discharge_count'];
+
+
+
+
+
+?>
+
+
+
+<?php
+
+$sql="SELECT COUNT(*) AS released_count FROM patient WHERE Released = 1";
+
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+$released_Count=$row['released_count'];
+
+
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+ <div class="main_container">
 
             <div class="dashboard_patientRecord">
                 <h3 class="patientsRecords">Patients Records</h3>
@@ -92,19 +153,19 @@ if(!isset($_SESSION['username'])){
                 <div class="patientRecords_box">
                       <h4 class="patientAdmit">Patients Admited</h4>
                       <hr class="admited_line">
-                      <h1 class="numberA">00</h1>
+                      <h1 class="numberA"><?php echo $admitted_Count;?></h1>
                 </div>
 
                 <div class="patientRecords_box">
                     <h4 class="patientAdmit">Patients Dischaged</h4>
                     <hr class="admited_line">
-                    <h1 class="numberA">00</h1>
+                    <h1 class="numberA"><?php echo $discharge_Count;?></h1>
                 </div>
 
                 <div class="patientRecords_box">
                     <h4 class="patientAdmit">Outpatients</h4>
                     <hr class="admited_line">
-                    <h1 class="numberA">00</h1>
+                    <h1 class="numberA"><?php echo $released_Count;?></h1>
                 </div>
 
 
@@ -126,47 +187,47 @@ if(!isset($_SESSION['username'])){
 </div>
 
 <div class="userInfor_form">
-<form action="">
+<form action="Nurse_patientInsert.php" method="POST">
 
 <div class="fname_user">
     <label for="fname">First Name</label>
-    <input type="text" name="fname" > 
+    <input type="text" name="P_fname" > 
 </div>
 
 <div class="fname_user">
     <label for="fname">Middle Name</label>
-    <input type="text" name="fname" > 
+    <input type="text" name="p_Mname" > 
 </div>
 
 <div class="fname_user">
     <label for="fname">Last Name</label>
-    <input type="text" name="fname" > 
+    <input type="text" name="p_Lname" > 
 </div>
 
 <div class="fname_user">
     <label for="fname">Birthdate</label>
-    <input type="date" name="fname" class="Birthdate" > 
+    <input type="date" name="p_Birthdate" class="Birthdate" > 
 </div>
 
 <div class="fname_user">
     <label for="fname">Address</label>
-    <input type="text" name="fname" > 
+    <input type="text" name="P_Address" > 
 </div>
 
 <div class="fname_user">
     <label for="fname">Contact</label>
-    <input type="text" name="fname" > 
+    <input type="text" name="p_Contact" > 
 </div>
 
 <div class="fname_user">
     <label for="fname">Age</label>
-    <input type="text" name="fname" > 
+    <input type="text" name="p_Age" > 
 </div>
 
 <div class="fname_userAge">
     <label for="fname">Sex:</label><br>
-    <input type="radio" name="fname" > Male
-    <input type="radio" name="fname" > Female
+    <input type="radio" name="p_Sex" value="Male" > Male
+    <input type="radio" name="p_Sex" value="Female"> Female
 </div>
 
 <div class="userAcount_info">
@@ -179,40 +240,40 @@ if(!isset($_SESSION['username'])){
 
         <div class="fname_user">
             <label for="fname">Blood group</label>
-            <input type="text" name="fname" > 
+            <input type="text" name="Blood_group" > 
         </div>
     
         <div class="fname_user">
             <label for="fname">Blood pressure</label>
-            <input type="password" name="fname" > 
+            <input type="text" name="Blood_pressure" > 
         </div>
     
         <div class="fname_user">
             <label for="fname">Weight</label>
-            <input type="text" name="fname" > 
+            <input type="text" name="weight" > 
         </div>
 
         <div class="fname_user">
             <label for="fname">Temprature</label>
-            <input type="text" name="fname" > 
+            <input type="text" name="Temprature" > 
         </div>
 
         <div class="fname_user">
             <label for="fname">Height</label>
-            <input type="text" name="fname" > 
+            <input type="text" name="Height" > 
         </div>
 
         <div class="fname_user">
             <label for="fname">More information</label>
-           <textarea></textarea>
+           <textarea name="More_info"></textarea>
         </div>
 
         <div class="fname_userSabmit">
-            <input type="submit" name="fname" value="Cancel"> 
+            <input type="submit" name="" value="Cancel"> 
         </div>
 
         <div class="fname_userCancel">
-            <input type="submit" name="fname" value="Submit" > 
+            <input type="submit" name="p_Submit" value="Submit" > 
         </div>
     
     </div>
@@ -224,7 +285,6 @@ if(!isset($_SESSION['username'])){
 
 
 </form>
-
 
 </div>
 

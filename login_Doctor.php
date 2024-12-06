@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'connect.php';  // Connection to your MySQL database
+require 'connect.php'; 
 
 $Invalid_password=0;
 $Invalid_username=0;
@@ -10,9 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Validate inputs
+   
     if (!empty($username) && !empty($password)) {
-        // Query to find the user in the database
+     
         $stmt = $con->prepare("SELECT id, username, password, usertype, f_Name, L_name  FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();

@@ -56,7 +56,7 @@ if(!isset($_SESSION['username'])){
 
 
         <div class="top_navbar">
-     <h3 class="dashboad">Dashboard</h3>
+        <h3 class="dashboad"><a href="admin.php">Dashboard</a></h3>
      <p class="admind">Admin</p>
 
      <div class="searchbar">
@@ -144,8 +144,16 @@ echo' <tr>
         <td>'.$age.'</td>
         <td>'.$sex.'</td>
         <td class="">
-            <a href="update_Userlist.php?updateid='.$id.'"> <span class="editbtn">Edit</span> </a>
-            <a href="delete_userlist.php?deleteid='.$id.'"> <span class="removedbtn">Remove</span> </a>
+         <div style="display: flex; justify-content: center;  align-items: center; gap: 2em;">
+            <a href="update_Userlist.php?updateid='.$id.'"> <span class="btn_edit">Edit</span> </a>
+            <a href="delete_userlist.php?deleteid='.$id.'"> <span class="btn_remove"    style="  padding: 10px 25px 10px;
+    background-color: rgb(225, 78, 78);
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-left: 20px;     ">Remove</span> </a>
+            </div>
         </td>
     </tr>';
 

@@ -1,12 +1,41 @@
-
-
 <?php
+
 include "connect.php";
 include "Fuction_msg.php";
 
 session_start();
 if(!isset($_SESSION['username'])){
     header('location:home.php');
+}
+
+?>
+
+<?php
+
+if (isset($_POST['Release'])) {
+    $id = $_GET['Treatment'];
+    $PatientTreatment_Text = mysqli_real_escape_string($con, $_POST['PatientTreatment_Text']); // Escape special characters
+
+    // Insert treatment info with escaped text
+    $sql = "INSERT INTO treatment_info (patient_id, Treatment_Info) VALUES ('$id', '$PatientTreatment_Text')";
+    $result = mysqli_query($con, $sql);
+
+    if ($result) {
+        // Update patient's released status
+        $sql = "UPDATE patient SET Released = 1 WHERE patient_id = $id";
+        $result = mysqli_query($con, $sql);
+
+        // Redirect after successful update
+        header('Location: doctor_patientTreatment.php');
+        exit();
+    }
+}
+
+elseif (isset($_POST['Admit'])) {
+    // Redirect to inpatient registration page
+    $id = $_GET['Treatment'];
+    header("Location: doctor_Treatment_Inpatientregister.php?Inpatient=$id");
+    exit();
 }
 
 ?>
@@ -20,7 +49,7 @@ if(!isset($_SESSION['username'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HSM_Doctor/DischargePatient_list</title>
+    <title>HSM_Doctor_patientTreatment</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/c5cdba9a5c.js" crossorigin="anonymous"></script>
 </head>
@@ -41,7 +70,7 @@ if(!isset($_SESSION['username'])){
     <a href="doctor_patientTreatment.php"><li id="P_treatment"> <i class="fa-solid fa-notes-medical"></i>Patient Treatment</li></a>
     <a href="doctor_Outpatient_list.php"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Outpatient</li></a>
     <a href="doctorAdmitedPatient_list.php"><li id="Inpatient"><i class="fa-solid fa-bed-pulse"></i>Inpatient</li></a>
-    <a href="#"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Discharged Patient</li></a>
+    <a href="doctor_dischargedPatient_list.php"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Discharged Patient</li></a>
 </ul>
 
 <ul>
@@ -80,17 +109,15 @@ if(!isset($_SESSION['username'])){
         <i class="fa-solid fa-user"></i>
      </div>
 
-    
+
      
 
         </div>
 
         <div class="main_container">
 
-            <h3>Discharged Patient List</h3>
+            <h3>Patient List</h3>
 
-          
-          
             <div class="table_body">
 <table>
     <thead>
@@ -99,6 +126,7 @@ if(!isset($_SESSION['username'])){
         <th>Fist Name</th>
         <th>Middle Name</th>
         <th>Last Name</th>
+        <th>User Type</th>
         <th>Birthdate</th>
         <th>Address</th>
         <th>Contact</th>
@@ -107,7 +135,6 @@ if(!isset($_SESSION['username'])){
         <th>Blood group</th>
         <th>Blood pressure</th>
         <th>Weight</th>
-        <th>Temprature</th>
         <th>Height</th>
         <th>More_information</th>
         <th>Admitted</th>
@@ -121,7 +148,7 @@ if(!isset($_SESSION['username'])){
 
 <?php
 
-$sql = "SELECT * FROM patient WHERE Discharge = 1";
+$sql="Select * from `patient`";
 $result= mysqli_query($con,$sql);
 
 
@@ -165,9 +192,8 @@ echo'<tr>
         <td>'.$Released.'</td>
         <td>'.$Discharge.'</td>
         <td class=" ">
-         <div style="display: flex; justify-content: center;  align-items: center; gap: 2em;">
-               <a href="doctor_medical_Report.php?Med_Report='.$patient_id.'"> <span class="View_bnt"><i class="fa-regular fa-eye"></i>View</span> </a>
-               </div>
+             <a href="#">  <span class="editbtn">Edit </span> </a>
+            <a href="#"><span id="Treatment_bnt" class="removedbtn"  > Treatment</span> </a>
         </td>
     </tr>
 
@@ -186,126 +212,49 @@ echo'<tr>
 </table>
 
 </div>
+           
 
-
-            
+           
         </div>
 
 
     </div>
 
-    <div class="userCreate" id="UserCreateA">
-<h4 class="create_text">Patient Registration</h4>
-<i id="close"   class="fa-solid fa-xmark"></i>
-<hr>
-
-<div class="userInformation">
-    <h5 class="userInfo">Patient Information</h5>
-</div>
-
-<div class="userInfor_form">
-<form action="doctor_Patient_insert.php" method="POST">
-
-<div class="fname_user">
-    <label for="fname">First Name</label>
-    <input type="text" name="P_fname" > 
-</div>
-
-<div class="fname_user">
-    <label for="fname">Middle Name</label>
-    <input type="text" name="p_Mname" > 
-</div>
-
-<div class="fname_user">
-    <label for="fname">Last Name</label>
-    <input type="text" name="p_Lname" > 
-</div>
-
-<div class="fname_user">
-    <label for="fname">Birthdate</label>
-    <input type="date" name="p_Birthdate" class="Birthdate" > 
-</div>
-
-<div class="fname_user">
-    <label for="fname">Address</label>
-    <input type="text" name="P_Address" > 
-</div>
-
-<div class="fname_user">
-    <label for="fname">Contact</label>
-    <input type="text" name="p_Contact" > 
-</div>
-
-<div class="fname_user">
-    <label for="fname">Age</label>
-    <input type="text" name="p_Age" > 
-</div>
-
-<div class="fname_userAge">
-    <label for="fname">Sex:</label><br>
-    <input type="radio" name="p_Sex" value="Male" > Male
-    <input type="radio" name="p_Sex" value="Female"> Female
-</div>
-
-<div class="userAcount_info">
-
-    <hr>
-    <h5>Patient health Information:</h5>
 
 
-    <div class="userAcount_info2">
-
-        <div class="fname_user">
-            <label for="fname">Blood group</label>
-            <input type="text" name="Blood_group" > 
-        </div>
     
-        <div class="fname_user">
-            <label for="fname">Blood pressure</label>
-            <input type="text" name="Blood_pressure" > 
-        </div>
-    
-        <div class="fname_user">
-            <label for="fname">Weight</label>
-            <input type="text" name="weight" > 
-        </div>
+    <div class="patient_treatmentBox1" >
+            <h3 class="patientTreatment_text">Patient Treatment</h3>
+           
 
-        <div class="fname_user">
-            <label for="fname">Temprature</label>
-            <input type="text" name="Temprature" > 
-        </div>
+<div class="patient_treatment_text">
+ <h4 class="prescription_text">Patient Treatment / Prescription</h4>
+</div>
+<form action="" method="POST">
+<textarea name="PatientTreatment_Text" id="" placeholder="Write Here Patient Treatment Detail" class="text_area">
 
-        <div class="fname_user">
-            <label for="fname">Height</label>
-            <input type="text" name="Height" > 
-        </div>
-
-        <div class="fname_user">
-            <label for="fname">More information</label>
-           <textarea name="More_info"></textarea>
-        </div>
-
-        <div class="fname_userSabmit">
-            <input type="submit" name="" value="Cancel"> 
-        </div>
-
-        <div class="fname_userCancel">
-            <input type="submit" name="p_Submit" value="Submit" > 
-        </div>
-    
-    </div>
+</textarea>
 
 
 
+
+<div class="Release_btn">
+    <input type="submit" name="Release" value="Release"> 
 </div>
 
 
+<div class="Admit_btn">
+    <input type="submit" name="Admit" id="Admit" value="ADMIT"> 
+</div>
 
 </form>
 
-</div>
+         </div>
 
-    </div>
+  
+
+
+
 
     <footer class="footer">
         <p class="address">Rehema medical clinic, 1234 Medical Ruiru, Kiambu, Kenya</p>
@@ -327,6 +276,13 @@ echo'<tr>
         
         
          </footer>
+
+
+
+
+
+
+
 
 <script src="script.js"></script>
 </body>

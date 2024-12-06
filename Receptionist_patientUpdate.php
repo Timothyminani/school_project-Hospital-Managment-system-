@@ -1,4 +1,3 @@
-
 <?php
 include "connect.php";
 
@@ -7,6 +6,78 @@ session_start();
 if(!isset($_SESSION['username'])){
     header('location:home.php');
 }
+
+?>
+
+
+<?php
+include "connect.php";
+
+$id=$_GET['updatePatient_id'];
+$sql="SELECT * from `patient` where patient_id=$id";
+$result=mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+    $p_first_name=$row['p_first_name'];
+    $p_middle_name=$row['p_middle_name'];
+    $p_last_name=$row['p_last_name'];
+    $p_Birthdate=$row['p_Birthdate'];
+    $p_Address=$row['p_Address'];
+    $p_contact=$row['p_contact'];
+    $p_age=$row['p_age'];
+    $p_sex=$row['p_sex'];
+    $Blood_group=$row['Blood_group'];
+    $Blood_pressure=$row['Blood_pressure'];
+    $weight=$row['weight'];
+    $temperature=$row['temperature'];
+    $height=$row['height'];
+    $More_info=$row['More_info'];
+
+
+    if(isset($_POST['Update'])){
+    $p_first_name= $_POST['P_fname'];
+    $p_middle_name= $_POST['p_Mname'];
+    $p_last_name= $_POST['p_Lname'];
+    $p_Birthdate= $_POST['p_Birthdate'];
+    $p_Address= $_POST['p_Address'];
+    $p_contact= $_POST['p_Contact'];
+    $p_age= $_POST['p_Age'];
+    $p_sex= $_POST['p_Sex'];
+    $Blood_group= $_POST['Blood_group'];
+    $Blood_pressure= $_POST['Blood_pressure'];
+    $weight= $_POST['weight'];
+    $temperature= $_POST['Temprature'];
+    $height= $_POST['Height'];
+    $More_info= $_POST['More_info'];
+
+     $sql="UPDATE `patient` SET 
+     p_first_name='$p_first_name',
+     p_middle_name='$p_middle_name',
+     p_last_name='$p_last_name',
+     p_Birthdate='$p_Birthdate',
+     p_Address='$p_Address',
+     p_contact='$p_contact',
+     p_age='$p_age',
+     p_sex='$p_sex',
+     Blood_group='$Blood_group',
+     Blood_pressure='$Blood_pressure',
+     weight='$weight',
+     temperature='$temperature',
+     height='$height',
+     More_info='$More_info'
+      WHERE patient_id='$id'
+     ";
+     $result=mysqli_query($con,$sql);
+     if ($result) {
+       
+        header('location:Receptionist_patient_list.php');
+    
+     }else{
+        die("Error: " . mysqli_error($con));
+        exit;
+     }
+
+
+    }
 
 ?>
 
@@ -95,7 +166,6 @@ if(!isset($_SESSION['username'])){
         <th>Blood group</th>
         <th>Blood pressure</th>
         <th>Weight</th>
-        <th>Temprature</th>
         <th>Height</th>
         <th>More_information</th>
         <th>Admitted</th>
@@ -152,11 +222,9 @@ echo'<tr>
         <td>'.$Admitted.'</td>
         <td>'.$Released.'</td>
         <td>'.$Discharge.'</td>
-         <td >
-          <div style="display: flex; justify-content: center;  align-items: center; gap: 2em;">
-          <a href="Receptionist_patientUpdate.php?updatePatient_id='.$patient_id.'"><span class="btn_edit">Edit</span> </a>
-           <a href="delete_patient.php?deleteid='.$patient_id.'"> <span class="btn_remove">Remove</span> </a>
-           </div>
+        <td>
+           <a href="#" > <span class="btn_edit">Edit</span> </a>
+           <a href="#"> <span class="btn_remove">Remove</span> </a>
         </td>
     </tr>
 
@@ -188,7 +256,7 @@ echo'<tr>
 
    
 
-    <div class="userCreate" id="UserCreateA">
+    <div class="Patient_update" >
 <h4 class="create_text">Patient Registration</h4>
 <i id="close"   class="fa-solid fa-xmark"></i>
 <hr>
@@ -198,47 +266,90 @@ echo'<tr>
 </div>
 
 <div class="userInfor_form">
-<form action="insert.php" method="POST">
+<form action="" method="POST">
 
 <div class="fname_user">
     <label for="fname">First Name</label>
-    <input type="text" name="P_fname" > 
+    <input type="text" name="P_fname" 
+
+    value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $p_first_name=$row['p_first_name']; ?>"> 
 </div>
 
 <div class="fname_user">
     <label for="fname">Middle Name</label>
-    <input type="text" name="p_Mname" > 
+    <input type="text" name="p_Mname" 
+     value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo  $p_middle_name=$row['p_middle_name']; ?>"> 
 </div>
 
 <div class="fname_user">
     <label for="fname">Last Name</label>
-    <input type="text" name="p_Lname" > 
+    <input type="text" name="p_Lname" 
+     value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $p_last_name=$row['p_last_name']; ?>"> 
 </div>
 
 <div class="fname_user">
     <label for="fname">Birthdate</label>
-    <input type="date" name="p_Birthdate" class="Birthdate" > 
+    <input type="date" name="p_Birthdate" class="Birthdate"  
+    value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $p_Birthdate=$row['p_Birthdate']; ?>"> 
 </div>
 
 <div class="fname_user">
     <label for="fname">Address</label>
-    <input type="text" name="P_Address" > 
+    <input type="text" name="p_Address"     
+    value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $p_Address=$row['p_Address']; ?>" > 
 </div>
 
 <div class="fname_user">
     <label for="fname">Contact</label>
-    <input type="text" name="p_Contact" > 
+    <input type="text" name="p_Contact"  
+    value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $p_contact=$row['p_contact'];?>"> 
 </div>
 
 <div class="fname_user">
     <label for="fname">Age</label>
-    <input type="text" name="p_Age" > 
+    <input type="text" name="p_Age"  
+    value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $p_age=$row['p_age']; ?>"> 
 </div>
 
 <div class="fname_userAge">
     <label for="fname">Sex:</label><br>
-    <input type="radio" name="p_Sex" value="Male" > Male
-    <input type="radio" name="p_Sex" value="Female"> Female
+    <input type="radio" name="p_Sex" value="Male"   <?php if($p_sex == 'Male') echo 'checked'; ?>> Male
+    <input type="radio" name="p_Sex" value="Female"  <?php if($p_sex == 'Female') echo 'checked'; ?>> Female
 </div>
 
 <div class="userAcount_info">
@@ -251,40 +362,71 @@ echo'<tr>
 
         <div class="fname_user">
             <label for="fname">Blood group</label>
-            <input type="text" name="Blood_group" > 
+            <input type="text" name="Blood_group"  
+            value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $Blood_group=$row['Blood_group']; ?>"> 
         </div>
     
         <div class="fname_user">
             <label for="fname">Blood pressure</label>
-            <input type="text" name="Blood_pressure" > 
+            <input type="text" name="Blood_pressure" 
+             value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $Blood_pressure=$row['Blood_pressure']; ?>"> 
         </div>
     
         <div class="fname_user">
             <label for="fname">Weight</label>
-            <input type="text" name="weight" > 
+            <input type="text" name="weight"  
+             value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $weight=$row['weight']; ?>"> 
         </div>
 
         <div class="fname_user">
             <label for="fname">Temprature</label>
-            <input type="text" name="Temprature" > 
+            <input type="text" name="Temprature" 
+             value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $temperature=$row['temperature']; ?>"> 
         </div>
 
         <div class="fname_user">
             <label for="fname">Height</label>
-            <input type="text" name="Height" > 
+            <input type="text" name="Height"   
+            value="<?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $height=$row['height']; ?>"> 
         </div>
 
         <div class="fname_user">
             <label for="fname">More information</label>
-           <textarea name="More_info"></textarea>
+           <textarea name="More_info" > <?php $id = $_GET['updatePatient_id'];
+$sql = "SELECT * FROM `patient` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $More_info=$row['More_info']; ?> </textarea>
         </div>
 
-        <div class="fname_userSabmit">
-            <input type="submit" name="" value="Cancel"> 
-        </div>
-
-        <div class="fname_userCancel">
-            <input type="submit" name="p_Submit" value="Submit" > 
+        <div class="patient_UpdateSubmit">
+            <input type="submit" name="Update" value="Update" > 
         </div>
     
     </div>

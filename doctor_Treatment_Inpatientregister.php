@@ -1,7 +1,6 @@
 <?php
 
 include "connect.php";
-include "Fuction_msg.php";
 
 session_start();
 if(!isset($_SESSION['username'])){
@@ -11,8 +10,40 @@ if(!isset($_SESSION['username'])){
 ?>
 
 
+<?php
+
+if (isset($_POST['Submit'])) {
+    $id = $_GET['Inpatient'];
+    $ReasonAdmission = mysqli_real_escape_string($con, $_POST['ReasonAdmission'] ?? '');
+    $Medical_History = mysqli_real_escape_string($con, $_POST['Medical_History'] ?? '');
+    $Social_History = mysqli_real_escape_string($con, $_POST['Social_History'] ?? '');    
+    $Treatment_plan = mysqli_real_escape_string($con, $_POST['Treatment_plan'] ?? '');
+    $insurance_provider = mysqli_real_escape_string($con, $_POST['insurance-provider'] ?? '');
+    $Policy_number = mysqli_real_escape_string($con, $_POST['Policy_number'] ?? '');
+    $ward = mysqli_real_escape_string($con, $_POST['ward'] ?? '');
+    $Room_Number = mysqli_real_escape_string($con, $_POST['Room_Number'] ?? '');
+    $Bed_Number = mysqli_real_escape_string($con, $_POST['Bed_Number'] ?? '');
+    
+   
+
+        $sql = "INSERT INTO admission_info (patient_id, Reason_for_admission, Medical_Histo, Life_style, Treatment_plan, Isurance_provider, Policy_number, Ward_Unit, Room_number, Bed_Number) 
+        VALUES ('$id', '$ReasonAdmission', '$Medical_History', '$Social_History', '$Treatment_plan', '$insurance_provider', '$Policy_number', '$ward', '$Room_Number', '$Bed_Number')";
+
+        $result = mysqli_query($con, $sql);
+
+        if ($result) {
+            $sql = "UPDATE patient SET Admitted = 1 WHERE patient_id = $id";
+            $result = mysqli_query($con, $sql);
+
+            header('Location: doctor_patientTreatment.php');
 
 
+        } else {
+            die("Error: " . mysqli_error($con));
+        }
+
+}
+?>
 
 
 <!DOCTYPE html>
@@ -97,6 +128,7 @@ if(!isset($_SESSION['username'])){
         <th>Fist Name</th>
         <th>Middle Name</th>
         <th>Last Name</th>
+        <th>User Type</th>
         <th>Birthdate</th>
         <th>Address</th>
         <th>Contact</th>
@@ -105,7 +137,6 @@ if(!isset($_SESSION['username'])){
         <th>Blood group</th>
         <th>Blood pressure</th>
         <th>Weight</th>
-        <th>Temprature</th>
         <th>Height</th>
         <th>More_information</th>
         <th>Admitted</th>
@@ -162,17 +193,9 @@ echo'<tr>
         <td>'.$Admitted.'</td>
         <td>'.$Released.'</td>
         <td>'.$Discharge.'</td>
-        <td>
-         <div style="display: flex; justify-content: center;  align-items: center; gap: 2em;">
-             <a href="doctor_patientUpdate.php?updatePatient_id='.$patient_id.'"><span class="btn_edit" >Edit</span> </a>
-              <a href="doctor_patientTreatmentBox.php?Treatment='.$patient_id.'"><span id="Treatment_bnt" class="btn_remove"   style="  padding: 10px 25px 10px;
-    background-color: rgb(225, 78, 78);
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-    margin-top: 40px;
-    margin-left: 20px;     "> Treatment</span> </a>
-              </div>
+        <td class=" ">
+             <a href="#">  <span class="editbtn">Edit </span> </a>
+              <a href="doctor_patientTreatmentBox.php?Treatment='.$patient_id.'"><span id="Treatment_bnt" class="removedbtn"  > Treatment</span> </a>
         </td>
     </tr>
 
@@ -199,129 +222,141 @@ echo'<tr>
 
     </div>
 
-    <div class="userCreate" id="UserCreateA">
-<h4 class="create_text">Patient Registration</h4>
-<i id="close"   class="fa-solid fa-xmark"></i>
-<hr>
+   
 
-<div class="userInformation">
-    <h5 class="userInfo">Patient Information</h5>
+
+
+
+    <div class="inpatientBox">
+
+<i  id="inpatient_close"  class="fa-solid fa-xmark"></i>
+
+<div class="inpatient_msg">
+    <h3>Inpatient Registration</h3>
 </div>
 
-<div class="userInfor_form">
-<form action="doctor_Patient_insert.php" method="POST">
 
-<div class="fname_user">
-    <label for="fname">First Name</label>
-    <input type="text" name="P_fname" > 
+<form action="" method="POST">
+<div class="reason_forAdmission">
+    <h4 class="reason_forAdmission_msg">Resoan For Admission</h4>
 </div>
 
-<div class="fname_user">
-    <label for="fname">Middle Name</label>
-    <input type="text" name="p_Mname" > 
+<textarea name="ReasonAdmission" id="reason_description" placeholder="Describe the current symptoms or issues that led to hospitalization">
+
+</textarea>
+
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Medical History</h4>
 </div>
 
-<div class="fname_user">
-    <label for="fname">Last Name</label>
-    <input type="text" name="p_Lname" > 
+<textarea name="Medical_History" id="MedicalHistory_description" placeholder="Describe the Medical History of a patient">
+
+</textarea>
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Life style & Social History</h4>
 </div>
 
-<div class="fname_user">
-    <label for="fname">Birthdate</label>
-    <input type="date" name="p_Birthdate" class="Birthdate" > 
+<textarea name="Social_History" id="MedicalHistory_description" placeholder="Describe the Medical History of a patient">
+
+</textarea>
+
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Treatment Plan & On Going Treatment</h4>
 </div>
 
-<div class="fname_user">
-    <label for="fname">Address</label>
-    <input type="text" name="P_Address" > 
+<textarea name="Treatment_plan" id="MedicalHistory_description" placeholder="Describe the Medical History of a patient">
+
+</textarea>
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Insurence Information</h4>
 </div>
 
-<div class="fname_user">
-    <label for="fname">Contact</label>
-    <input type="text" name="p_Contact" > 
-</div>
+  <div class="insurence_provider">
+<label for="insurance-provider">Insurance Provider:</label>
+<input type="text" id="insurance-provider" name="insurance-provider">
+  </div>
 
-<div class="fname_user">
-    <label for="fname">Age</label>
-    <input type="text" name="p_Age" > 
-</div>
+  <div class="insurence_provider">
+    <label for="insurance-provider">Policy Number:</label>
+    <input type="text" id="insurance-provider1" name="Policy_number">
+      </div>
 
-<div class="fname_userAge">
-    <label for="fname">Sex:</label><br>
-    <input type="radio" name="p_Sex" value="Male" > Male
-    <input type="radio" name="p_Sex" value="Female"> Female
-</div>
-
-<div class="userAcount_info">
-
-    <hr>
-    <h5>Patient health Information:</h5>
-
-
-    <div class="userAcount_info2">
-
-        <div class="fname_user">
-            <label for="fname">Blood group</label>
-            <input type="text" name="Blood_group" > 
-        </div>
-    
-        <div class="fname_user">
-            <label for="fname">Blood pressure</label>
-            <input type="text" name="Blood_pressure" > 
-        </div>
-    
-        <div class="fname_user">
-            <label for="fname">Weight</label>
-            <input type="text" name="weight" > 
-        </div>
-
-        <div class="fname_user">
-            <label for="fname">Temprature</label>
-            <input type="text" name="Temprature" > 
-        </div>
-
-        <div class="fname_user">
-            <label for="fname">Height</label>
-            <input type="text" name="Height" > 
-        </div>
-
-        <div class="fname_user">
-            <label for="fname">More information</label>
-           <textarea name="More_info"></textarea>
-        </div>
-
-        <div class="fname_userSabmit">
-            <input type="submit" name="" value="Cancel"> 
-        </div>
-
-        <div class="fname_userCancel">
-            <input type="submit" name="p_Submit" value="Submit" > 
-        </div>
-    
+      <div class="medical_history">
+        <h4 class="reason_forAdmission_msg"> Room Assignment</h4>
     </div>
 
+    <div class="insurence_provider">
+
+        <label for="ward">Ward/Unit:</label>
+        <select id="ward" name="ward">
+            <option value="general">General Ward</option>
+            <option value="icu">ICU</option>
+            <option value="surgery">Surgery</option>
+        </select>
+        
+          </div>
 
 
-</div>
+          <div class="insurence_provider">
+        
+            <label for="ward2">Room Number:</label>
+            <select id="ward2" name="Room_Number">
+                <option value="104">104</option>
+                <option value="202">202</option>
+                <option value="23">23</option>
+                <option value="104">104</option>
+                <option value="202">202</option>
+                <option value="23">23</option>
+            </select>
+            
+              </div>
 
 
-
-</form>
-
-
-</div>
-
-    </div>
-
-
-
-
-
-
-
-
+              <div class="insurence_provider">
+        
+                <label for="ward3">Bed Number:</label>
+                <select id="ward3" name="Bed_Number">
+                    <option value="104">104</option>
+                    <option value="202">202</option>
+                    <option value="23">23</option>
+                    <option value="104">104</option>
+                    <option value="202">202</option>
+                    <option value="23">23</option>
+                </select>
+                
+                  </div>
 
     
+
+
+                
+
+
+                 <hr class="line_submit">
+
+                 <div class="submit_box">
+                    <input type="submit" id="submit_btnCancel" value="Cancel">
+                    <input type="submit" id="submit_btnSabmit" value="Submit" name="Submit">
+                </div>
+
+                </form>
+            
+
+
+
+</div>
+
+
+
+
+
+
+
+
     <footer class="footer">
         <p class="address">Rehema medical clinic, 1234 Medical Ruiru, Kiambu, Kenya</p>
         <h3 class="Privacy">Privacy and Security</h3>
@@ -350,7 +385,6 @@ echo'<tr>
 
 
         
-
 <script src="script.js"></script>
 </body>
 </html>

@@ -5,12 +5,40 @@ include "connect.php";
 include "Fuction_msg.php";
 
 session_start();
-if(!isset($_SESSION['username'])){
-    header('location:home.php');
-}
-
 ?>
 
+
+<?php
+
+$id = $_GET['treatment_info'];
+$sql = "SELECT * FROM `admission_info` WHERE patient_id = $id";
+$result=mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+$Treatment_plan=$row['Treatment_plan'];
+
+
+if(isset($_POST['Update'])){
+    $Treatment_plan= $_POST['Treatment_plan'];
+
+ $sql="UPDATE `admission_info` SET 
+     Treatment_plan='$Treatment_plan'";
+
+     $result=mysqli_query($con,$sql);
+
+     if ($result) {
+       
+        header("location:Nurse_Inpatient.php");
+
+     }else{
+        die("Error: " . mysqli_error($con));
+        exit;
+     }
+
+}
+
+
+?>
 
 
 
@@ -56,7 +84,7 @@ if(!isset($_SESSION['username'])){
 
         <div class="top_navbar">
         <h3 class="dashboad"><a href="doctor.php">Dashboard</a></h3>
-     <p class="admind">Doctor</p>
+     <p class="admind">Nurse</p>
 
      <div class="searchbar">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -99,6 +127,7 @@ if(!isset($_SESSION['username'])){
         <th>Fist Name</th>
         <th>Middle Name</th>
         <th>Last Name</th>
+        <th>User Type</th>
         <th>Birthdate</th>
         <th>Address</th>
         <th>Contact</th>
@@ -107,7 +136,6 @@ if(!isset($_SESSION['username'])){
         <th>Blood group</th>
         <th>Blood pressure</th>
         <th>Weight</th>
-        <th>Temprature</th>
         <th>Height</th>
         <th>More_information</th>
         <th>Admitted</th>
@@ -165,9 +193,7 @@ echo'<tr>
         <td>'.$Released.'</td>
         <td>'.$Discharge.'</td>
         <td class=" ">
-         <div style="display: flex; justify-content: center;  align-items: center; gap: 2em;">
-               <a href="doctor_medical_Report.php?Med_Report='.$patient_id.'"> <span class="View_bnt"><i class="fa-regular fa-eye"></i>View</span> </a>
-               </div>
+                <a href="#"> <span class="View_bnt"><i class="fa-regular fa-eye"></i>View</span> </a>
         </td>
     </tr>
 
@@ -194,6 +220,104 @@ echo'<tr>
 
     </div>
 
+
+
+
+
+    <div class="inpatientBox">
+
+<i  id="inpatient_close"  class="fa-solid fa-xmark"></i>
+
+<div class="inpatient_msg">
+    <h3>Patient On Going Treatment</h3>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">On Going Treatment</h4>
+</div>
+
+
+
+
+
+
+
+
+<form action="" method="POST">
+
+<textarea  id="MedicalHistory_description" name="Treatment_plan">
+<?php
+
+$id = $_GET['treatment_info'];
+$sql = "SELECT * FROM `admission_info` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $reason_for_admission=$row['Treatment_plan'];
+
+
+?>
+</textarea>
+
+
+
+
+
+<hr class="line_submit">
+
+ <div class="patient_UpdateSubmit" style=" margin-left: 150px;">
+            <input type="submit" name="Update" value="Update" > 
+        </div>
+
+        </form>           
+            
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="userCreate" id="UserCreateA">
 <h4 class="create_text">Patient Registration</h4>
 <i id="close"   class="fa-solid fa-xmark"></i>
@@ -204,7 +328,7 @@ echo'<tr>
 </div>
 
 <div class="userInfor_form">
-<form action="doctor_Patient_insert.php" method="POST">
+<form action="insert.php" method="POST">
 
 <div class="fname_user">
     <label for="fname">First Name</label>

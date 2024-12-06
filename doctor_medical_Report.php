@@ -12,7 +12,11 @@ if(!isset($_SESSION['username'])){
 ?>
 
 
-
+<?php
+if(isset($_GET['Go_Back'])){
+    header('location:doctor_dischargedPatient_list.php');
+}
+?>
 
 
 <!DOCTYPE html>
@@ -99,6 +103,7 @@ if(!isset($_SESSION['username'])){
         <th>Fist Name</th>
         <th>Middle Name</th>
         <th>Last Name</th>
+        <th>User Type</th>
         <th>Birthdate</th>
         <th>Address</th>
         <th>Contact</th>
@@ -107,7 +112,6 @@ if(!isset($_SESSION['username'])){
         <th>Blood group</th>
         <th>Blood pressure</th>
         <th>Weight</th>
-        <th>Temprature</th>
         <th>Height</th>
         <th>More_information</th>
         <th>Admitted</th>
@@ -165,9 +169,7 @@ echo'<tr>
         <td>'.$Released.'</td>
         <td>'.$Discharge.'</td>
         <td class=" ">
-         <div style="display: flex; justify-content: center;  align-items: center; gap: 2em;">
-               <a href="doctor_medical_Report.php?Med_Report='.$patient_id.'"> <span class="View_bnt"><i class="fa-regular fa-eye"></i>View</span> </a>
-               </div>
+                <a href="#"> <span class="View_bnt"><i class="fa-regular fa-eye"></i>View</span> </a>
         </td>
     </tr>
 
@@ -194,6 +196,223 @@ echo'<tr>
 
     </div>
 
+
+
+
+
+    <div class="inpatientBox">
+
+<i  id="inpatient_close"  class="fa-solid fa-xmark"></i>
+
+<div class="inpatient_msg">
+    <h3>Medical Report</h3>
+</div>
+
+<div class="inpatient_msg">
+    <h5><?php
+
+$id = $_GET['Med_Report'];
+$sql = "SELECT * FROM patient WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $reason_for_admission=$row['p_first_name'];
+ echo " ";
+ echo $p_last_name=$row['p_last_name'];
+
+
+?></h5>
+</div>
+
+
+
+
+
+
+
+
+
+<form action="" method="POST">
+<div class="reason_forAdmission">
+    <h4 class="reason_forAdmission_msg">Reason For Admission</h4>
+</div>
+
+<textarea  id="reason_description" >
+<?php
+
+$id = $_GET['Med_Report'];
+$sql = "SELECT * FROM `admission_info` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $reason_for_admission=$row['Reason_for_admission'];
+
+
+?>
+</textarea>
+
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Followup Instruction</h4>
+</div>
+
+<textarea  id="MedicalHistory_description" >
+<?php
+
+$id = $_GET['Med_Report'];
+$sql = "SELECT * FROM `discharge_info` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $reason_for_admission=$row['Followup_Instruction'];
+
+
+?>
+</textarea>
+
+
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg"> Treatment Plan</h4>
+</div>
+
+<textarea id="MedicalHistory_description" >
+<?php
+
+$id = $_GET['Med_Report'];
+$sql = "SELECT * FROM `admission_info` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $reason_for_admission=$row['Treatment_plan'];
+
+
+?>
+</textarea>
+
+
+
+
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Billing Information</h4>
+</div>
+
+<textarea  id="MedicalHistory_description">
+<?php
+
+$id = $_GET['Med_Report'];
+$sql = "SELECT * FROM `discharge_info` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $reason_for_admission=$row['Billing_information'];
+
+
+?>
+</textarea>
+
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Reason For Discharge</h4>
+</div>
+
+<textarea  id="MedicalHistory_description">
+<?php
+
+$id = $_GET['Med_Report'];
+$sql = "SELECT * FROM `discharge_info` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $reason_for_admission=$row['Reason_for_discharge'];
+
+
+?>
+</textarea>
+
+
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Admission Date</h4>
+</div>
+
+<textarea  id="MedicalHistory_description" >
+<?php
+
+$id = $_GET['Med_Report'];
+$sql = "SELECT * FROM `admission_info` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $reason_for_admission=$row['Date'];
+
+
+?>
+</textarea>
+
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Discharge Date</h4>
+</div>
+
+<textarea  id="MedicalHistory_description" >
+<?php
+
+$id = $_GET['Med_Report'];
+$sql = "SELECT * FROM `discharge_info` WHERE patient_id = $id";
+$result= mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($result);
+
+ echo $reason_for_admission=$row['Date'];
+
+
+?>
+</textarea>
+
+
+ <hr class="line_submit">
+
+                 <div class="submit_box">
+                    <input type="Submit" id="submit_btnCancel" value="Go Back" name="Go_Back">
+                </div>
+
+                </form>
+            
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="userCreate" id="UserCreateA">
 <h4 class="create_text">Patient Registration</h4>
 <i id="close"   class="fa-solid fa-xmark"></i>
@@ -204,7 +423,7 @@ echo'<tr>
 </div>
 
 <div class="userInfor_form">
-<form action="doctor_Patient_insert.php" method="POST">
+<form action="insert.php" method="POST">
 
 <div class="fname_user">
     <label for="fname">First Name</label>

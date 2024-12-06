@@ -2,6 +2,9 @@
 
 
 <?php
+include "connect.php";
+
+
 session_start();
 if(!isset($_SESSION['username'])){
     header('location:home.php');
@@ -53,7 +56,7 @@ if(!isset($_SESSION['username'])){
 
 
         <div class="top_navbar">
-     <h3 class="dashboad">Dashboard</h3>
+        <h3 class="dashboad"><a href="admin.php">Dashboard</a></h3>
      <p class="admind">Admin</p>
 
      <div class="searchbar">
@@ -88,11 +91,11 @@ if(!isset($_SESSION['username'])){
 
             <h3>Patient List</h3>
 
-<div class="table_body">
+            <div class="table_body">
 <table>
     <thead>
     <tr>
-        <th>User Id</th>
+        <th>Patient Id</th>
         <th>Fist Name</th>
         <th>Middle Name</th>
         <th>Last Name</th>
@@ -106,319 +109,83 @@ if(!isset($_SESSION['username'])){
         <th>Blood pressure</th>
         <th>Weight</th>
         <th>Height</th>
+        <th>More_information</th>
+        <th>Admitted</th>
+        <th>Released</th>
+        <th>Discharge</th>
         <th>Action</th>
     </tr>
 </thead>
 
 <tbody>
 
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
+<?php
+
+$sql="Select * from `patient`";
+$result= mysqli_query($con,$sql);
+
+
+while($row=mysqli_fetch_assoc($result)){
+$patient_id=$row['patient_id'];
+$p_first_name=$row['p_first_name'];
+$p_middle_name=$row['p_middle_name'];
+$p_last_name=$row['p_last_name'];
+$p_Birthdate=$row['p_Birthdate'];
+$p_Address=$row['p_Address'];
+$p_contact=$row['p_contact'];
+$p_age=$row['p_age'];
+$p_sex=$row['p_sex'];
+$Blood_group=$row['Blood_group'];
+$Blood_pressure=$row['Blood_pressure'];
+$weight=$row['weight'];
+$temperature=$row['temperature'];
+$height=$row['height'];
+$More_info=$row['More_info'];
+$Admitted=$row['Admitted'];
+$Released=$row['Released'];
+$Discharge=$row['Discharge'];
+
+echo'<tr>
+        <td>'.$patient_id.'</td>
+        <td>'.$p_first_name.'</td>
+        <td>'.$p_middle_name.'</td>
+        <td>'.$p_last_name.'</td>
+        <td>'.$p_Birthdate.'</td>
+        <td>'.$p_Address.'</td>
+        <td>'.$p_contact.'</td>
+        <td>'.$p_age.'</td>
+        <td>'.$p_sex.'</td>
+        <td>'.$Blood_group.'</td>
+        <td>'.$Blood_pressure.'</td>
+        <td>'.$weight.'</td>
+        <td>'.$temperature.'</td>
+        <td>'.$height.'</td>
+        <td>'.$More_info.'</td>
+        <td>'.$Admitted.'</td>
+        <td>'.$Released.'</td>
+        <td>'.$Discharge.'</td>
+        <td class="">
+           <div style="display: flex; justify-content: center;  align-items: center; gap: 2em;">
+           <a href="doctor_patientUpdate.php?updatePatient_id='.$patient_id.'"><span class="btn_edit" >Edit</span> </a>
+            <a href="delete_patientD.php?deleteid='.$patient_id.'"><span class="btn_remove"  style="  padding: 10px 25px 10px;
+    background-color: rgb(225, 78, 78);
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-left: 20px;     ">Remove</span> </a>
+            </div>
         </td>
     </tr>
 
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
+';
 
 
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
+}
 
 
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
+?> 
 
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-
-    <tr>
-        <td>1</td>
-        <td>Timothy</td>
-        <td>Minani</td>
-        <td>Paul</td>
-        <td>Doctor</td>
-        <td>27/12/1999</td>
-        <td>Kiambu</td>
-        <td>0769295800</td>
-        <td>24</td>
-        <td>Male</td>
-        <td>AB</td>
-        <td>Sytolic</td>
-        <td>55kg</td>
-        <td>5ft</td>
-        <td class="action_td">
-            <a href="#"> <span class="editbtn">Edit</span> </a>
-           <a href="#"> <span class="removedbtn">Remove</span> </a>
-        </td>
-    </tr>
-
-   
 
 
 

@@ -467,19 +467,18 @@ body{
 
 /*PATIENT TREATMENT BOX */
 
-.patient_treatmentBox{
+.patient_treatmentBox1{
     width: 800px;
     height: 400px;
     position: absolute;
     background-color: white;
-    top: -700px;
+    top: 100px;
     right: 100px;
     border: 1px solid black;
 }
 
-.active{
-    top:0;
-}
+
+
 
 .patientTreatment_text{
     text-align: center;
@@ -556,15 +555,13 @@ body{
     background-color: white;
     border: solid 1px black;
     position: absolute;
-    top: -1000px;
+    top: 100px;
     margin-left: 363px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-.active{
-    top:0px;
-}
+
 
 #inpatient_close{
     top: 5px;
@@ -673,6 +670,9 @@ body{
     align-items: center;
     
 }
+
+
+
 
 .line_submit{
     width: 650px;
@@ -808,6 +808,10 @@ ul a{
 .dashboad{
     margin-top: 5px;
     margin-left: 10px;
+}
+
+h3 a{
+    color: black;
 }
 
 .admind{
@@ -975,6 +979,10 @@ ul a{
     padding: 10px;
 }
 
+table{
+    table-layout: fixed;
+}
+
 
 table, th, td{
     padding: 20px 35px 20px;
@@ -985,74 +993,54 @@ table, th, td{
 }
 
 
-
-
-
-
-
-.editbtn{
-    padding: 5px 15px 5px;
-    background-color: rgb(71, 71, 244);
-    color: white;
-    border-radius: 10px;
-    text-align: center;
-    position: relative;
-    top: 15px;
-
-}
-
-
-.editbtn:hover{
-    background-color: rgb(11, 11, 214);
-}
-
 .View_bnt{
-    padding: 5px 25px 5px;
+    padding: 10px 10px 10px;
     background-color: rgb(71, 71, 244);
     color: white;
     border-radius: 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    gap: 0.5em;
+    
 }
 
-.fa-eye{
-    margin-right: 10px;
-}
-
-.View_bnt:hover{
-    background-color: rgb(11, 11, 214);
-}
-
-
- a{
+a{
     text-decoration: none;
 }
 
-.removedbtn{
-    padding: 5px 15px 5px;
-    background-color:rgb(202, 81, 81);
-    color: white;
+.fa-eye{
+    margin-right: 0px;
+}
+
+ .btn_edit{
+     padding: 10px 25px 10px;
+     background-color: rgb(54, 54, 225);
+     border-radius: 10px;
+     font-weight: bold;
+     color: white;
+}
+
+.btn_remove{
+    padding: 10px 25px 10px;
+    background-color: rgb(225, 78, 78);
     border-radius: 10px;
-    position: relative; 
-    margin-left: 100px;
-    bottom: 4px;
-}
-
-.removedbtn:hover{
-    background-color: rgb(188, 17, 17);
+    color: white;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-left: 20px;
 }
 
 
-
+.btn_remove:hover{
+    background-color: rgb(150, 8, 8);
+}
 
 .action{
-    display: flex;
-
+    display: inline-flex;
+    justify-content:space-between;
+    gap: 1em;
+  
 }
-
-
-
 
 
 
@@ -1228,6 +1216,42 @@ table, th, td{
     color: white;
     font-weight: bold;
 }
+
+
+/*PATIENT UPDATE PATIENT UPDATE PATIENT UPDATE PATIENT UPDATE */
+
+.Patient_update{
+    width: 700px;
+    height: 500px;
+    position: absolute;
+    background-color: white;
+    border: solid 1px black;
+    top: 80px;
+    right: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    
+}
+
+.patient_UpdateSubmit{
+    width: 200px;
+    height: 50px;
+   margin-top: 15px;
+   margin-right: 330px;
+}
+
+
+.patient_UpdateSubmit input{
+    background-color: rgb(51, 51, 243);
+    width: 500px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+ 
 
 
 

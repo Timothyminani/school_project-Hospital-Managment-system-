@@ -12,6 +12,38 @@ if(!isset($_SESSION['username'])){
 ?>
 
 
+<?php
+
+if (isset($_POST['Submit'])) {
+    $id = $_GET['Discharged'];
+    $Discharge_summary = mysqli_real_escape_string($con, $_POST['Discharge_summary'] ?? '');
+    $Followup_instruction = mysqli_real_escape_string($con, $_POST['Followup_instruction'] ?? '');
+    $Billing_information = mysqli_real_escape_string($con, $_POST['Billing_information'] ?? '');    
+    $Reason_for_Discharge = mysqli_real_escape_string($con, $_POST['Reason_for_Discharge'] ?? '');
+    
+   
+
+        $sql = "INSERT INTO discharge_info (patient_id, Discharge_summary, Followup_Instruction, Billing_information, Reason_for_discharge) 
+        VALUES ('$id', '$Discharge_summary', '$Followup_instruction', '$Billing_information', '$Reason_for_Discharge')";
+
+        $result = mysqli_query($con, $sql);
+
+        if ($result) {
+            $sql = "UPDATE patient SET Discharge = 1 WHERE patient_id = $id";
+            $result = mysqli_query($con, $sql);
+
+            header('Location: doctorAdmitedPatient_list.php');
+
+
+        } else {
+            die("Error: " . mysqli_error($con));
+        }
+
+}
+?>
+
+
+
 
 
 
@@ -20,7 +52,7 @@ if(!isset($_SESSION['username'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HSM_Doctor/DischargePatient_list</title>
+    <title>HSM_DoctorAdmittedPatient</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/c5cdba9a5c.js" crossorigin="anonymous"></script>
 </head>
@@ -41,7 +73,7 @@ if(!isset($_SESSION['username'])){
     <a href="doctor_patientTreatment.php"><li id="P_treatment"> <i class="fa-solid fa-notes-medical"></i>Patient Treatment</li></a>
     <a href="doctor_Outpatient_list.php"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Outpatient</li></a>
     <a href="doctorAdmitedPatient_list.php"><li id="Inpatient"><i class="fa-solid fa-bed-pulse"></i>Inpatient</li></a>
-    <a href="#"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Discharged Patient</li></a>
+    <a href="doctor_dischargedPatient_list.php"><li id="Outpatient"><i class="fa-solid fa-bed"></i>Discharged Patient</li></a>
 </ul>
 
 <ul>
@@ -55,7 +87,7 @@ if(!isset($_SESSION['username'])){
 
 
         <div class="top_navbar">
-        <h3 class="dashboad"><a href="doctor.php">Dashboard</a></h3>
+     <h3 class="dashboad">Dashboard</h3>
      <p class="admind">Doctor</p>
 
      <div class="searchbar">
@@ -80,16 +112,15 @@ if(!isset($_SESSION['username'])){
         <i class="fa-solid fa-user"></i>
      </div>
 
-    
+
      
 
         </div>
 
         <div class="main_container">
 
-            <h3>Discharged Patient List</h3>
+            <h3>Patient Admitted List / Inpatient</h3>
 
-          
           
             <div class="table_body">
 <table>
@@ -99,6 +130,7 @@ if(!isset($_SESSION['username'])){
         <th>Fist Name</th>
         <th>Middle Name</th>
         <th>Last Name</th>
+        <th>User Type</th>
         <th>Birthdate</th>
         <th>Address</th>
         <th>Contact</th>
@@ -107,7 +139,6 @@ if(!isset($_SESSION['username'])){
         <th>Blood group</th>
         <th>Blood pressure</th>
         <th>Weight</th>
-        <th>Temprature</th>
         <th>Height</th>
         <th>More_information</th>
         <th>Admitted</th>
@@ -121,7 +152,7 @@ if(!isset($_SESSION['username'])){
 
 <?php
 
-$sql = "SELECT * FROM patient WHERE Discharge = 1";
+$sql = "SELECT * FROM patient WHERE Admitted = 1";
 $result= mysqli_query($con,$sql);
 
 
@@ -165,9 +196,8 @@ echo'<tr>
         <td>'.$Released.'</td>
         <td>'.$Discharge.'</td>
         <td class=" ">
-         <div style="display: flex; justify-content: center;  align-items: center; gap: 2em;">
-               <a href="doctor_medical_Report.php?Med_Report='.$patient_id.'"> <span class="View_bnt"><i class="fa-regular fa-eye"></i>View</span> </a>
-               </div>
+                 <a href="#"> <span class="View_bnt"><i class="fa-regular fa-eye"></i>View</span> </a>
+                <a href="#"> <span class="removedbtn">Discharge</span> </a>
         </td>
     </tr>
 
@@ -193,6 +223,83 @@ echo'<tr>
 
 
     </div>
+
+
+
+
+
+
+
+    
+    <div class="inpatientBox">
+
+<i  id="inpatient_close"  class="fa-solid fa-xmark"></i>
+
+<div class="inpatient_msg">
+    <h3>Discharge Sheet</h3>
+</div>
+
+
+<form action="" method="POST">
+<div class="reason_forAdmission">
+    <h4 class="reason_forAdmission_msg">Discharge Summary</h4>
+</div>
+
+<textarea name="Discharge_summary" id="reason_description" placeholder="Describe the current symptoms or issues that led to hospitalization">
+
+</textarea>
+
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Followup Instruction</h4>
+</div>
+
+<textarea name="Followup_instruction" id="MedicalHistory_description" placeholder="Describe the Medical History of a patient">
+
+</textarea>
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Billing Information</h4>
+</div>
+
+<textarea name="Billing_information" id="MedicalHistory_description" placeholder="Describe the Medical History of a patient">
+
+</textarea>
+
+
+<div class="medical_history">
+    <h4 class="reason_forAdmission_msg">Reason For Discharge</h4>
+</div>
+
+<textarea name="Reason_for_Discharge" id="MedicalHistory_description" placeholder="Describe the Medical History of a patient">
+
+</textarea>
+
+
+ <hr class="line_submit">
+
+                 <div class="submit_box">
+                    <input type="submit" id="submit_btnCancel" value="Cancel">
+                    <input type="submit" id="submit_btnSabmit" value="Submit" name="Submit">
+                </div>
+
+                </form>
+            
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="userCreate" id="UserCreateA">
 <h4 class="create_text">Patient Registration</h4>
